@@ -1,0 +1,76 @@
+version: 2
+
+jobs:
+  "Build - Program extension":
+    docker:
+      # Image built from the Dockerfile in the current repository
+      - image: xebiafrance/contentful-extensions-build-container:v1
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            # Find a cache corresponding to this specific package-lock.json checksum
+            # when this file is changed, this key will fail
+            - program/v1-npm-deps-{{ checksum "program/package-lock.json" }}
+            # Find the most recently generated cache used from any branch
+            - program/v1-npm-deps-
+      - run:
+          name: Build React app
+          command: |
+            cd program/
+            npm install
+            npm run build
+      - persist_to_workspace:
+          root: .
+          paths:
+            - program/build
+            - program/serverless.yml
+      - save_cache:
+          key: program/v1-npm-deps-{{ checksum "program/package-lock.json" }}
+          paths:
+            - "program/.node_modules"
+
+  "Package Serverless - Program extension":
+    docker:
+      # Image built from the Dockerfile in the current repository
+      - image: xebiafrance/contentful-extensions-build-container:v1
+    steps:
+      - attach_workspace:
+          at: .
+      - run:
+          name: Create Serverless packages
+          command: |
+            cd program/
+            serverless package -p package-prod -s prod
+      - persist_to_workspace:
+          root: .
+          paths:
+            - program/build
+            - program/package-prod
+            - program/serverless.yml
+
+  "Deploy - Program extension":
+    docker:
+      # Image built from the Dockerfile in the current repository
+      - image: xebiafrance/contentful-extensions-build-container:v1
+    steps:
+      - attach_workspace:
+          at: .
+      - run:
+          name: Deploy to AWS S3
+          command: |
+            cd program/
+            serverless deploy --force -p package-prod -s prod
+
+workflows:
+  version: 2
+  full:
+    jobs:
+      - "Build - Program extension"
+      - "Package Serverless - Program extension":
+          requires:
+            - "Build - Program extension"
+      - "Deploy - Program extension":
+          context: "Contentful Extensions - AWS Deployment"
+          requires:
+            - "Package Serverless - Program extension"

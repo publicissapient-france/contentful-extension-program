@@ -1,0 +1,7 @@
+{
+  "id": "program",
+  "name": "Program",
+  "srcdoc": "./build/index.html",
+  "sidebar": false,
+  "fieldTypes": ["Object"]
+}
