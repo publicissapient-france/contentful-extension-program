@@ -15,7 +15,7 @@ class Duration extends Component {
                     <input type={'text'}
                            defaultValue={storeValue ? storeValue : ''}
                            onChange={e => {
-                               dispatch(updateDuration('duration', e.target.value))
+                               dispatch(updateDuration(e.target.value))
                            }}/>
                 </Field>
             </Container>
@@ -28,7 +28,7 @@ Duration.propTypes = {
 };
 
 const mapStateToProps = ({ sessions }) => ({
-    storeValue : sessions.informations['duration'] || null,
+    storeValue : sessions.duration || null,
 });
 
 export default connect(mapStateToProps)(Duration);

@@ -1,39 +1,42 @@
 import styled from 'styled-components';
-import { extensionTheme} from "../../../style/theme";
+import { extensionTheme} from "../../style/theme";
 
 export const Container = styled.div`
   padding : 10px;
-  background : ${extensionTheme.white};
-`;
-
-export const Row = styled.div`
   display : flex;
+  width : 70%;
+  justify-content : flex-end;
+  
 `;
 
-export const Column = styled.div`
+export const Box = styled.div`
   display : flex;
   flex-direction : column;
-  width : 50%;
-  padding-right : 20px;
+  padding-left : 20px;
 `;
 
 export const Field = styled.div`
   display : flex;
-  flex-direction : column;
   width : 100%;
   box-sizing : border-box;
   
   input{
     border : 1px solid  ${ extensionTheme.grey80 };
     width : 100%;
-    padding : 0;
     padding-left : 5px;
     box-sizing:border-box;
-    line-height : 30px;
+    max-width : 130px;
     
     &.updated{
         background : ${ extensionTheme.blueM };
         color :  ${ extensionTheme.white };
+    }
+    
+    &[type="checkbox"]{
+        width : 20px;
+        height : 30px;
+        margin : 0;
+        padding-right : 5px;
     }
   }
   
@@ -42,12 +45,6 @@ export const Field = styled.div`
             background : ${ extensionTheme.blueM };
             color : ${ extensionTheme.white }
         }
-  }
-  
-  label {
-    font-size : 12px;
-    font-weight : 300;
-    color :  ${ extensionTheme.grey80 };
   }
   
   span {
@@ -59,13 +56,4 @@ export const Field = styled.div`
   &.open{
     display: flex;
   }
-`;
-
-export const Title = styled.p`
-    line-height : 15px;
-    padding-bottom : 5px;
-    align-self:center;
-    font-size:13px;
-    font-weight : 400;
-    opacity:0.7;
 `;

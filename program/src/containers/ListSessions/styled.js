@@ -2,9 +2,6 @@ import styled from 'styled-components';
 import {extensionTheme} from "../../style/theme";
 
 export const Container = styled.div`
-  border: 1px solid ${ extensionTheme.grey20 };
-  border-left : 5px solid ${extensionTheme.blueM}
-  background : white;
   margin-bottom : 10px;
   box-sizing : border-box;
   margin-left : 10px;
@@ -17,18 +14,29 @@ export const Banner = styled.div`
   padding-left : 10px;
   box-sizing : border-box;
   font-weight : 300;
-  border-bottom : 1px solid ${ extensionTheme.grey20 }; 
   justify-content: space-between;
-  padding-right : 3px;
+  align-items : center;
   height : 35px;
+  background-color : ${extensionTheme.blueM};
+  padding-left : 40px;
+  margin-bottom : 20px;
   
-  & h4{
+  &>div{
+    display : flex;
+    width : 25%;
+    
+    &:nth-child(1), &:nth-child(2){
+        width : 150px;
+    }
+  }
+  
+  & p{
     line-height : 15px;
     align-self:center;
     font-size:13px;
     font-weight : 700;
-    opacity:0.7;
     margin: 0;
     padding : 0;
+    color : white;
   }
 `;

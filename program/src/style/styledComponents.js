@@ -140,6 +140,7 @@ export const Icon = styled.div`
   cursor  : pointer;
   display :flex;
   align-items : center;
+  justify-content : center;
   transition : transform 0.3s ease; 
   
   & svg g path, & svg path, & svg rect {

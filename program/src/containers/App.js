@@ -3,10 +3,10 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {Extension, MainContainer, FlexBox} from '../style/styledComponents';
 import isEqual from 'lodash/isEqual';
-import {initExtensionInformation, initSessions, initVisibility} from '../actions';
+import {initExtensionInformation, initSessions} from '../actions';
 import Duration from '../fields/Duration';
-import Pricing from '../fields/global/Pricing'
-import Date from '../fields/Date'
+import Pricing from '../fields/Pricing'
+import ListSessions from './ListSessions'
 
 
 class App extends React.Component {
@@ -26,7 +26,6 @@ class App extends React.Component {
         if (this.props.extension.field && this.props.extension.field.getValue()) {
             this.props.dispatch(initSessions(JSON.parse(this.props.extension.field.getValue().value)));
             this.props.dispatch(initExtensionInformation(this.props.extension));
-            this.props.dispatch(initVisibility(this.props.extension.locales.default));
         }
 
         this.detachFns = [];
@@ -131,7 +130,7 @@ class App extends React.Component {
                         <Duration/>
                         <Pricing/>
                     </FlexBox>
-                    <Date/>
+                    <ListSessions/>
                 </MainContainer>
             </Extension>
         );

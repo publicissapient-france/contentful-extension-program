@@ -13,9 +13,8 @@ import App from './containers/App';
 
 const initialState = {
     sessions : {
-        informations : {
-
-        },
+        duration : '',
+        pricing : {},
         schedule : []
     }
 };
