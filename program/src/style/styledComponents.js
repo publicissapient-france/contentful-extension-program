@@ -4,16 +4,13 @@ import { contentfulTheme, extensionTheme } from './theme';
 export const Extension = styled.div`
     width : auto;
     height : auto;
-
     p {
         margin : 0;
     }
-    
-    
 `;
 export const MainContainer = styled.div`
     border-radius : 2px;
-    box-shadow : 0 1px 3px rgba(0,0,0,0.08);
+    border : 1px solid ${extensionTheme.grey30};
     padding-bottom : 20px;
     margin-bottom : 20px;
     padding-top : 20px;
@@ -24,7 +21,7 @@ export const MainContainer = styled.div`
     font-family :${ contentfulTheme.basicFont };
     font-size : 14px;
     font-weight : 400;
-
+    background-color : ${extensionTheme.grey10};
     
     h2{
        font-weight : 300; 
@@ -58,39 +55,21 @@ export const MainContainer = styled.div`
     input {
         font-size : 14px;
         color : ${ contentfulTheme.black };
-        border-width : 0 0 1px 0;
-        border-style : solid;
-        border-color : transparent;
-        border-image-width : 0 0 1px 0;
-        border-image-source :url("https://static.contentful.com/app/svg/dotted-border.svg");
-        border-image-repeat : round;
-        border-image-slice : 1.1; 
+        border : 1px solid ${extensionTheme.grey40};
         height : 30px;
-        background : transparent;
-        
-        &[type='text']{
-            border-width : 0 0 1px 0;
-            border-style : solid;
-            border-color : transparent;
-            border-image-width : 0 0 1px 0;
-            border-image-source :url("https://static.contentful.com/app/svg/dotted-border.svg");
-            border-image-repeat : round;
-            border-image-slice : 1.1; 
-            
-            
-        }
-       
-        
-      
+        background : ${extensionTheme.white};
+        border-radius : 2px;
+        overflow : hidden;
     }
     
     label{
-        font-size : 12px;
         line-height : 24px;
-        font-weight : 200;
-        color : ${ extensionTheme.grey40 };
         font-family :${ contentfulTheme.basicFont };
-
+        line-height : 15px;
+        align-self:center;
+        font-size:13px;
+        font-weight : 400;
+        color :  ${ extensionTheme.grey80 };
     }
     
     section{
@@ -147,5 +126,76 @@ export const MainContainer = styled.div`
         display : none;
     }
     
+    textarea{
+       border-color : ${extensionTheme.grey30};
+       font-size : 14px;
+       color : ${ contentfulTheme.black };
+    }
+`;
+
+
+export const Icon = styled.div`
+  width : 40px;
+  height : 40px;
+  cursor  : pointer;
+  display :flex;
+  align-items : center;
+  transition : transform 0.3s ease; 
+  
+  & svg g path, & svg path, & svg rect {
+        fill : ${ extensionTheme.grey40 };
+    }
+
+  &.active{
+    & svg g path, & svg path, & svg rect {
+        fill : ${ extensionTheme.greenM };
+    }
+  }
+  
+  &.disable{
+    & svg g path, & svg  path {
+        fill : ${ extensionTheme.grey20 };
+    }
+  }
+  
+  &:not(.disable):hover{
+    & svg g path, & svg  path, & svg rect {
+        fill : ${ extensionTheme.greenM };
+    }
+  }
+  
+   &.trash:hover{
+    & svg g path, & svg path, & svg  rect {
+        fill : ${ extensionTheme.redM };
+    }
+  }
+  &.trash.active{
+    & svg g path, & svg path, & svg  rect {
+        fill : ${ extensionTheme.redM };
+    }
+  }
+  
+  &.rotate{
+    transform : rotate(180deg);
+  }
+  
+  &.toggleAll{
+    & svg g path, & svg path, & svg  rect {
+        fill : ${ extensionTheme.white };
+    }
     
+    &:hover{
+        & svg g path, & svg path, & svg  rect {
+            fill : ${ extensionTheme.white };
+        }
+    }
+  }
+  
+`;
+
+
+
+
+export const FlexBox = styled.div`
+   display : flex;
 `;

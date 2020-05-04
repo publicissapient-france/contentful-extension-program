@@ -1,1 +1,3 @@
-export * from './speakers';
+export * from './sessions';
+export * from './extension';
+export * from './visibility';

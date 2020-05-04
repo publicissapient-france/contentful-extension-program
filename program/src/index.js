@@ -11,15 +11,22 @@ import { init } from 'contentful-ui-extensions-sdk';
 
 import App from './containers/App';
 
-const initialState = {};
+const initialState = {
+    sessions : {
+        informations : {
+
+        },
+        schedule : []
+    }
+};
 
 const store = createStore(rootReducer, initialState, applyMiddleware(logger));
 
 init(extension => {
     ReactDOM.render(
-        <Provider store={store}>
-            <App extension={extension} store={store} />
-        </Provider>,
-        document.getElementById('root')
-    );
+    <Provider store={store}>
+        <App extension={extension} store={store} />
+    </Provider>,
+    document.getElementById('root')
+);
 });

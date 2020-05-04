@@ -1,7 +1,13 @@
 import debounce from 'debounce-fn';
 import React from 'react';
 import {connect} from 'react-redux';
-import {Extension, MainContainer} from '../style/styledComponents';
+import {Extension, MainContainer, FlexBox} from '../style/styledComponents';
+import isEqual from 'lodash/isEqual';
+import {initExtensionInformation, initSessions, initVisibility} from '../actions';
+import Duration from '../fields/Duration';
+import Pricing from '../fields/global/Pricing'
+import Date from '../fields/Date'
+
 
 class App extends React.Component {
     constructor(props) {
@@ -17,6 +23,11 @@ class App extends React.Component {
     }
 
     componentDidMount = async () => {
+        if (this.props.extension.field && this.props.extension.field.getValue()) {
+            this.props.dispatch(initSessions(JSON.parse(this.props.extension.field.getValue().value)));
+            this.props.dispatch(initExtensionInformation(this.props.extension));
+            this.props.dispatch(initVisibility(this.props.extension.locales.default));
+        }
 
         this.detachFns = [];
 
@@ -31,12 +42,20 @@ class App extends React.Component {
         );
 
         this.props.extension.window.startAutoResizer();
-
-        await this.initStyleStore();
     }
 
     componentDidUpdate = prevProps => {
+        if (!isEqual(prevProps.sessions, this.props.sessions)) {
+            if (!this.props.extension.field.getValue()) {
+                this.setFieldValue();
+            }
 
+            if (this.props.extension.field.getValue() &&
+                this.props.extension.field.getValue().value &&
+                !isEqual(this.props.sessions, JSON.parse(this.props.extension.field.getValue().value))) {
+                this.setFieldValue();
+            }
+        }
     }
 
     componentWillUnmount = () => {
@@ -45,9 +64,14 @@ class App extends React.Component {
     }
 
     setFieldValue = () => {
+        this.props.extension.field.removeValue().then(() => {
+            const sessions = this.props.store.getState().sessions;
 
-        this.props.extension.field.setValue({
-            program: {}
+            this.props.extension.field.setValue({
+                value: JSON.stringify(sessions)
+            }).then(() => {
+                console.log('NEW SEO VALUE', this.props.extension.field.getValue())
+            });
         });
 
     }
@@ -61,24 +85,25 @@ class App extends React.Component {
         });
     }
 
-    /*getStyleGuide = () => {
-        if (!this.props.extension.entry.fields['styleGuide'].getValue()) return;
-        let styleGuideID = this.props.extension.entry.fields['styleGuide'].getValue().sys.id;
-        return this.props.extension.space
-            .getEntries({
-                'sys.id': styleGuideID
-            })
-            .then(result => {
-                return result.items[0].fields;
-            });
-    }*/
-
 
     getAssetsUrlById = id => {
         return this.props.extension.space
             .getAsset(id)
             .then(result => {
                 return result.fields.file[this.props.extension.locales.default].url;
+            });
+    }
+
+    getPagesOfSpace = async () => {
+
+        return this.props.extension.space
+            .getEntries({
+                'content_type': 'page'
+            })
+            .then(result => {
+                let pages = result.items.map(entry => entry)
+                    .filter(page => page.fields.type[this.props.extension.locales.default] === 'internal')
+                return pages;
             });
     }
 
@@ -101,22 +126,19 @@ class App extends React.Component {
     render = () => {
         return (
             <Extension>
-                <div className={'container'}>
-                    {this.renderDomStructure()}
-                </div>
+                <MainContainer className={'container'}>
+                    <FlexBox>
+                        <Duration/>
+                        <Pricing/>
+                    </FlexBox>
+                    <Date/>
+                </MainContainer>
             </Extension>
-        );
-    }
-
-    renderDomStructure = () => {
-        return (
-            <MainContainer>
-                program application
-            </MainContainer>
         );
     }
 }
 
-const mapStateToProps = state => ({});
-
+const mapStateToProps = ({sessions}) => ({
+    sessions: sessions,
+});
 export default connect(mapStateToProps)(App);
