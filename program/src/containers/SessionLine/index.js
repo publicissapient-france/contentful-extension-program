@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 import {Container, Delete, Pastille, Promotion, InputDate, InputSelect, SafeDelete, Line, DateBox, CloseBox} from './styled'
 import { Icon} from "../../style/styledComponents";
 import SvgTrashSmall from '../../components/svg/SvgTrashSmall'
-import SvgInformation from '../../components/svg/SvgInformation';
+import SvgCalendar from '../../components/svg/SvgCalendar';
 import {updateSession, updatePromo, removeSession} from "../../actions";
 import ButtonBasic  from '../../components/ButtonBasic'
 import ButtonDelete  from '../../components/ButtonDelete'
@@ -113,7 +113,7 @@ class SessionLine extends Component {
                 </InputDate>
                 <InputDate>
                     <Icon onClick={() => this.openEndCalendar() }>
-                        <SvgInformation/>
+                        <SvgCalendar/>
                     </Icon>
                     <p onClick={() => this.openEndCalendar() }>{ this.state.endDay && this.state.endDay !== undefined ?  this.state.endDay.toLocaleDateString() : ''}</p>
                     <DateBox className={!this.state.openEndCalendar ? 'hidden' : '' }>
