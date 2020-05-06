@@ -5,6 +5,7 @@ import {Container, Delete, Pastille, Promotion, InputDate, InputSelect, SafeDele
 import { Icon} from "../../style/styledComponents";
 import SvgTrashSmall from '../../components/svg/SvgTrashSmall'
 import SvgCalendar from '../../components/svg/SvgCalendar';
+import SvgInformation from '../../components/svg/SvgInformation';
 import {updateSession, updatePromo, removeSession} from "../../actions";
 import ButtonBasic  from '../../components/ButtonBasic'
 import ButtonDelete  from '../../components/ButtonDelete'
@@ -100,7 +101,7 @@ class SessionLine extends Component {
                 </Delete>
                 <InputDate>
                     <Icon onClick={() => this.openStartCalendar() }>
-                        <SvgInformation/>
+                        <SvgCalendar/>
                     </Icon>
                     <p onClick={() => this.openStartCalendar() }>{ this.state.startDay && this.state.startDay !== undefined ?  this.state.startDay.toLocaleDateString() : ''}</p>
                     <DateBox className={!this.state.openStartCalendar ? 'hidden' : '' }>
