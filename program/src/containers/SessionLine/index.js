@@ -87,6 +87,11 @@ class SessionLine extends Component {
 
     }
 
+    isPassed = (date) => {
+        const currentDate = new Date();
+        return new Date(date).getTime() <= currentDate.getTime()
+    }
+
 
     render() {
         const {dispatch, index, storeValue} = this.props;
@@ -99,7 +104,7 @@ class SessionLine extends Component {
                         <SvgTrashSmall/>
                     </Icon>
                 </Delete>
-                <InputDate>
+                <InputDate className={this.isPassed(this.state.startDay) ? 'passed' : ''}>
                     <Icon onClick={() => this.openStartCalendar() }>
                         <SvgCalendar/>
                     </Icon>
@@ -112,7 +117,7 @@ class SessionLine extends Component {
                         />
                     </DateBox>
                 </InputDate>
-                <InputDate>
+                <InputDate className={this.isPassed(this.state.startDay) ? 'passed' : ''}>
                     <Icon onClick={() => this.openEndCalendar() }>
                         <SvgCalendar/>
                     </Icon>

@@ -126,6 +126,8 @@ export const InputDate = styled.div`
    cursor : pointer;
    position : relative;
    
+ 
+   
    & ${Icon}{
         width : 30px;
         height :30px;
@@ -144,6 +146,13 @@ export const InputDate = styled.div`
            }
        }
    }
+   
+   &.passed{
+       & ${Icon}{
+           background-color : ${extensionTheme.redM};
+       }
+   }
+   
 `;
 
 export const InputSelect = styled.div`
