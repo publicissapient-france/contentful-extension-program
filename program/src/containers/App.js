@@ -130,7 +130,7 @@ class App extends React.Component {
                         <Duration/>
                         <Pricing/>
                     </FlexBox>
-                    <ListSessions/>
+                    <ListSessions schedule={this.props.sessions.schedule}/>
                 </MainContainer>
             </Extension>
         );

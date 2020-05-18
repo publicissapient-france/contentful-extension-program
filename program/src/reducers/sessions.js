@@ -39,12 +39,12 @@ const sessions = (state = [], action) => {
                 schedule: {
                     $push: [
                         {
-                            startTime : undefined,
-                            endTime : undefined,
-                            type : '',
-                            promo : {
-                                available : false,
-                                price : ''
+                            startTime: undefined,
+                            endTime: undefined,
+                            type: '',
+                            promo: {
+                                available: false,
+                                price: ''
                             }
                         }
                     ]
@@ -54,12 +54,12 @@ const sessions = (state = [], action) => {
 
         case 'REMOVE_SESSION' :
             return update(state, {
-                    schedule: {
-                        $set: [
-                            ...state.schedule.slice(0, action.index),
-                            ...state.schedule.slice(action.index + 1)
-                        ]
-                    }
+                schedule: {
+                    $set: [
+                        ...state.schedule.slice(0, action.index),
+                        ...state.schedule.slice(action.index + 1)
+                    ]
+                }
             });
 
 
@@ -72,11 +72,20 @@ const sessions = (state = [], action) => {
                 }
             });
 
+        case 'ORDER_SESSIONS' :
+            const currentSchedule = [...state.schedule];
+
+            return update(state, {
+                schedule: {
+                    $set: sortByIncreasingStart(currentSchedule)
+                }
+            });
+
         case 'UPDATE_PROMO' :
             return update(state, {
                 schedule: {
                     [action.index]: {
-                        promo : {
+                        promo: {
                             [action.target]: {$set: action.value}
                         }
                     }
@@ -89,3 +98,7 @@ const sessions = (state = [], action) => {
 };
 
 export default sessions;
+
+const sortByIncreasingStart = (sessions) => sessions.sort((a, b) => {
+    return new Date(a.startTime) - new Date(b.startTime);
+});

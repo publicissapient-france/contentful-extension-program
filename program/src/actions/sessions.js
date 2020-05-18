@@ -38,3 +38,6 @@ export const updatePromo = (index, target, value) => ({
     index : index,
     value : value
 });
+export const orderSessions = () => ({
+    type: 'ORDER_SESSIONS'
+});

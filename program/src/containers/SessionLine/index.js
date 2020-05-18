@@ -6,7 +6,7 @@ import { Icon} from "../../style/styledComponents";
 import SvgTrashSmall from '../../components/svg/SvgTrashSmall'
 import SvgCalendar from '../../components/svg/SvgCalendar';
 import SvgInformation from '../../components/svg/SvgInformation';
-import {updateSession, updatePromo, removeSession} from "../../actions";
+import {updateSession, updatePromo, removeSession, orderSessions} from "../../actions";
 import ButtonBasic  from '../../components/ButtonBasic'
 import ButtonDelete  from '../../components/ButtonDelete'
 import DayPicker from 'react-day-picker';
@@ -57,14 +57,18 @@ class SessionLine extends Component {
         if (selected) {
             // Unselect the day if already selected
             this.setState({ startDay: undefined }, () => {{
-                dispatch(updateSession(index, 'startTime', this.state.startDay))
-                this.setState({openStartCalendar : false})
+                dispatch(updateSession(index, 'startTime',this.state.startDay.toISOString()))
+                this.setState({openStartCalendar : false}, () => {
+                    dispatch(orderSessions());
+                })
             }});
             return;
         }
         this.setState({ startDay: day }, () => {{
-            dispatch(updateSession(index, 'startTime', this.state.startDay))
-            this.setState({openStartCalendar : false})
+            dispatch(updateSession(index, 'startTime', this.state.startDay.toISOString()))
+            this.setState({openStartCalendar : false}, () => {
+                dispatch(orderSessions());
+            })
         }});
 
     }
@@ -75,13 +79,13 @@ class SessionLine extends Component {
         if (selected) {
             // Unselect the day if already selected
             this.setState({ endDay: undefined }, () => {{
-                dispatch(updateSession(index, 'endTime', this.state.endDay))
+                dispatch(updateSession(index, 'endTime', this.state.endDay.toISOString()))
                 this.setState({openEndCalendar : false})
             }});
             return;
         }
         this.setState({ endDay: day }, () => {{
-            dispatch(updateSession(index, 'endTime', this.state.endDay))
+            dispatch(updateSession(index, 'endTime', this.state.endDay.toISOString()))
             this.setState({openEndCalendar : false})
         }});
 
@@ -96,6 +100,8 @@ class SessionLine extends Component {
     render() {
         const {dispatch, index, storeValue} = this.props;
 
+
+        if(!storeValue) return null
         return (
             <Container>
                 <Line>
