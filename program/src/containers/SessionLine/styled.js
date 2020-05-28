@@ -163,7 +163,7 @@ export const InputDate = styled.div`
 
 export const InputSelect = styled.div`
    width : 140px;
-   padding-right : 10px;
+   margin-right : 10px;
    background : ${extensionTheme.white};
    
    & select{
