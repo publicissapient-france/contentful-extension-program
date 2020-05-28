@@ -96,6 +96,12 @@ class SessionLine extends Component {
         return new Date(date).getTime() <= currentDate.getTime()
     }
 
+    isIncomplete = () => {
+        const { storeValue } = this.props;
+        if(!storeValue.startTime || !storeValue.startTime || !storeValue.type || storeValue.type === '' ) return true;
+        return false;
+    }
+
 
     render() {
         const {dispatch, index, storeValue} = this.props;
@@ -103,7 +109,7 @@ class SessionLine extends Component {
 
         if(!storeValue) return null
         return (
-            <Container>
+            <Container className={this.isIncomplete() ? 'incomplete' : ''}>
                 <Line>
                 <Delete onClick={() => this.toggleSafeSecure()}>
                     <Icon className={'trash'}>

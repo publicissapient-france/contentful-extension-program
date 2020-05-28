@@ -11,6 +11,11 @@ export const Container = styled.div`
   display : flex;
   flex-direction : column;
   margin-bottom : 10px;
+  overflow : hidden;
+  
+  &.incomplete{
+     background : ${extensionTheme.grey20};
+  }
 `;
 
 export const Line = styled.div`
@@ -125,6 +130,7 @@ export const InputDate = styled.div`
    border : 1px solid ${extensionTheme.grey50};
    cursor : pointer;
    position : relative;
+   background : ${extensionTheme.white};
    
  
    
@@ -158,6 +164,7 @@ export const InputDate = styled.div`
 export const InputSelect = styled.div`
    width : 140px;
    padding-right : 10px;
+   background : ${extensionTheme.white};
    
    & select{
        border : 1px solid ${extensionTheme.grey50};
