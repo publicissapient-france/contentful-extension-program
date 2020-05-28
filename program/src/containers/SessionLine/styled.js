@@ -167,6 +167,7 @@ export const InputSelect = styled.div`
    background : ${extensionTheme.white};
    
    & select{
+        width : 140px;
        border : 1px solid ${extensionTheme.grey50};
    }
 `;
