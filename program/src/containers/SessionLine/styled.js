@@ -11,7 +11,7 @@ export const Container = styled.div`
   display : flex;
   flex-direction : column;
   margin-bottom : 10px;
-  overflow : hidden;
+  overflow : visible;
   
   &.incomplete{
      background : ${extensionTheme.grey20};
