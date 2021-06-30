@@ -69,7 +69,7 @@ class App extends React.Component {
             this.props.extension.field.setValue({
                 value: JSON.stringify(sessions)
             }).then(() => {
-                console.log('NEW SEO VALUE', this.props.extension.field.getValue())
+                    console.log('NEW PROGRAM VALUE', this.props.extension.field.getValue())
             });
         });
 

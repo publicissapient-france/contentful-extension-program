@@ -7,7 +7,6 @@ export const Container = styled.div`
   background : ${extensionTheme.white};
   border-radius : 8px;
   border : 1px solid ${extensionTheme.grey50};
-  //overflow : hidden;
   display : flex;
   flex-direction : column;
   margin-bottom : 10px;
@@ -125,8 +124,6 @@ export const InputDate = styled.div`
    margin-right : 10px;
    display : flex;
    align-items : center;
-   //overflow : hidden;
-   //border-radius : 2px;
    border : 1px solid ${extensionTheme.grey50};
    cursor : pointer;
    position : relative;
@@ -135,8 +132,9 @@ export const InputDate = styled.div`
  
    
    & ${Icon}{
-        width : 30px;
-        height :30px;
+       width : 30px;
+       min-width : 30px;
+       height :30px;
        background-color : ${extensionTheme.blueM};
        margin-right : 10px;
        border-radius : 2px 0 0 2px;
@@ -157,6 +155,11 @@ export const InputDate = styled.div`
        & ${Icon}{
            background-color : ${extensionTheme.redM};
        }
+   }
+   
+   &>p{
+        white-space: nowrap;
+        overflow-x : scroll;
    }
    
 `;

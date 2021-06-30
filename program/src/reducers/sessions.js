@@ -1,4 +1,5 @@
 import update from 'react-addons-update';
+import {sortByIncreasingStart} from "../utils/functions";
 
 const sessions = (state = [], action) => {
     switch (action.type) {
@@ -39,8 +40,8 @@ const sessions = (state = [], action) => {
                 schedule: {
                     $push: [
                         {
-                            startTime: undefined,
-                            endTime: undefined,
+                            startTime: [],
+                            endTime: [],
                             type: '',
                             promo: {
                                 available: false,
@@ -99,6 +100,3 @@ const sessions = (state = [], action) => {
 
 export default sessions;
 
-const sortByIncreasingStart = (sessions) => sessions.sort((a, b) => {
-    return new Date(a.startTime) - new Date(b.startTime);
-});
